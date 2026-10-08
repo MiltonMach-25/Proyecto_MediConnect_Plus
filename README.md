@@ -2,7 +2,7 @@
 
 > **Conecta tu atención. Simplifica tu salud.**
 
-MediConnect Plus es un sistema de gestión hospitalaria diseñado para digitalizar la gestión de pacientes, médicos, citas, historia clínica electrónica, prescripciones, órdenes médicas y procesos administrativos, con una arquitectura híbrida que combina comunicación síncrona para operaciones críticas y asíncrona mediante eventos para procesos secundarios.
+MediConnect Plus es un Sistema de Gestión Hospitalaria diseñado para digitalizar la gestión de pacientes, médicos, citas, historia clínica electrónica, prescripciones, órdenes médicas y procesos administrativos, con una arquitectura híbrida que combina comunicación síncrona para operaciones críticas y asíncrona mediante eventos para procesos secundarios.
 
 ---
 
@@ -19,7 +19,8 @@ MediConnect Plus es un sistema de gestión hospitalaria diseñado para digitaliz
 9. [Taller Práctico — ADR-001](#taller-práctico--adr-001)
 10. [Estructura del Proyecto](#estructura-del-proyecto)
 11. [Tecnologías](#tecnologías)
-12. [Equipo](#equipo)
+12. [Evidencias](#evidencias)
+13. [Equipo](#equipo)
 
 ---
 
@@ -124,8 +125,11 @@ flowchart LR
     S -->|Valida cobertura y autorizaciones| EPS
     S <-->|Envía órdenes y recibe resultados| LAB
     S -->|Solicita notificaciones| NOT
+```
 
 ### Nivel 2 — Contenedores
+
+```mermaid
 flowchart TB
     U[Paciente / Médico / Administrativo]
     WEB[Aplicación Web]
@@ -148,10 +152,12 @@ flowchart TB
     BUS -->|Eventos de integración| INT
     INT -->|REST/FHIR| EPS
     INT -->|REST/FHIR/Webhooks| LAB
-    NOT -->|HTTPS| EXT 
+    NOT -->|HTTPS| EXT
+```
 
 ### Nivel 3 — Componentes (API MediConnect Plus)
 
+```mermaid
 flowchart TB
     API[API Hospitalaria]
     AUTH[Autenticación y Autorización]
@@ -176,6 +182,7 @@ flowchart TB
     ORD --> EVT
     HCE --> EVT
     EVT --> BUS
+```
 
 ---
 
@@ -193,8 +200,6 @@ Los diagramas UML del proyecto están disponibles en la carpeta `uml/`:
 | Componentes | `uml/componentes.puml` | Componentes de la API |
 | Despliegue | `uml/despliegue.puml` | Infraestructura física |
 | Estados | `uml/estados_cita.puml` | Ciclo de vida de una cita |
-
----
 
 ---
 
@@ -228,8 +233,7 @@ Response 201:
   "estado": "confirmada",
   "fecha": "2026-10-15T10:30:00Z"
 }
-
----
+```
 
 ---
 
@@ -308,33 +312,34 @@ Response 201:
 ---
 
 ## 📁 Estructura del Proyecto
+
+```text
 MediConnectPlus/
 ├── README.md
 ├── docs/
-│ ├── ADR-001-Broker-Eventos.md
-│ ├── PeerReview.md
-│ └── Reglas_de_Negocio.md
+│   ├── ADR-001-Broker-Eventos.md
+│   ├── PeerReview.md
+│   └── Reglas_de_Negocio.md
 ├── uml/
-│ ├── casos_de_uso.puml
-│ ├── clases.puml
-│ ├── secuencia_cita.puml
-│ ├── secuencia_orden.puml
-│ ├── actividad_cita.puml
-│ ├── componentes.puml
-│ ├── despliegue.puml
-│ └── estados_cita.puml
+│   ├── casos_de_uso.puml
+│   ├── clases.puml
+│   ├── secuencia_cita.puml
+│   ├── secuencia_orden.puml
+│   ├── actividad_cita.puml
+│   ├── componentes.puml
+│   ├── despliegue.puml
+│   └── estados_cita.puml
 ├── frontend/
-│ ├── index.html
-│ ├── styles.css
-│ └── app.js
+│   ├── index.html
+│   ├── styles.css
+│   └── app.js
 ├── api/
-│ ├── openapi.yaml
-│ └── endpoints.md
+│   ├── openapi.yaml
+│   └── endpoints.md
 └── evidencias/
-├── Análisis_Individual_R.T.pdf
-└── Modelado_Milton.pdf
-text
-
+    ├── Análisis_Individual_R.T.pdf
+    └── Modelado_Milton.pdf
+```
 
 ---
 
@@ -351,6 +356,15 @@ text
 | Interoperabilidad | HL7 FHIR R4 | Estándar clínico |
 | Protocolos | HTTPS/TLS, REST/JSON, SQL, Webhooks | Comunicación segura |
 
+---
+
+## 📎 Evidencias
+
+- **Anexo 1:** Borrador individual de Raúl Andrés Triana Ortega (`Análisis Individual R.T.pdf`).
+- **Anexo 2:** Borrador individual de Milton César Machado Baneto (`Modelado y Diseño Arquitectónico con el Modelo C4.pdf`).
+- **Anexo 3:** Diagramas Mermaid (Nivel 1, 2 y 3) incluidos en este documento.
+- **Anexo 4:** Matriz de interfaces y contratos de API.
+- **Anexo 5:** ADR-001 y Peer Review del taller práctico.
 
 ---
 
@@ -362,8 +376,7 @@ text
 | Raúl Andrés Triana Ortega | Arquitecto de Software |
 | Santiago Molina Maldonado | Arquitecto de Software |
 
-
-**Tema:** Redacción y revisión entre pares de decisiones arquitectónicas con PlantUML.
+**Tema:** Redacción y revisión entre pares de decisiones arquitectónicas con PlantUML.  
 **Fecha:** Octubre 2026
 
 ---
