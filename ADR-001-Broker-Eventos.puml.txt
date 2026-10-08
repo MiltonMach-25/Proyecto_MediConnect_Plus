@@ -1,0 +1,37 @@
+@startuml ADR-001_Broker_Eventos
+!theme cerulean-outline
+title ADR-001: Comunicación Asíncrona mediante Broker de Eventos
+
+actor Paciente
+participant "Aplicación Web" as WEB
+participant "API MediConnect Plus" as API
+participant "Gestión de Citas" as CIT
+database "PostgreSQL" as DB
+participant "Publicador de Eventos" as EVT
+queue "Broker de Eventos" as BUS
+participant "Servicio de Notificaciones" as NOT
+participant "Servicio de Integración" as INT
+
+Paciente -> WEB: Agenda cita
+WEB -> API: POST /api/v1/citas
+API -> CIT: agendarCita(datos)
+CIT -> DB: INSERT cita
+DB --> CIT: OK
+CIT -> EVT: publicarEvento(CitaAgendada)
+EVT -> BUS: envía evento
+CIT --> API: citaDTO
+API --> WEB: 201 Created
+WEB --> Paciente: Cita confirmada
+
+BUS --> NOT: CitaAgendada (asíncrono)
+BUS --> INT: CitaAgendada (asíncrono)
+NOT -> NOT: Preparar notificación
+INT -> INT: Sincronizar con EPS/Lab
+
+note right of BUS
+  La operación principal (crear cita)
+  NO espera a que notificaciones
+  o integración terminen.
+end note
+
+@enduml
