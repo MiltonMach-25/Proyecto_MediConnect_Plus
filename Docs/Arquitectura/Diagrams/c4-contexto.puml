@@ -1,0 +1,33 @@
+```plantuml
+
+@startuml c4-contexto
+!theme cerulean-outline
+title C4 Nivel 1 — Contexto: MediConnect Plus
+
+actor "Paciente" as P
+actor "Médico / Especialista" as M
+actor "Personal Administrativo" as A
+
+rectangle "MediConnect Plus" as S {
+  rectangle "Sistema de Gestión Hospitalaria"
+}
+
+actor "EPS / Aseguradora" as EPS
+actor "Laboratorios Externos" as LAB
+actor "Proveedor de Notificaciones" as NOT
+
+P --> S : Gestiona citas y consulta información
+M --> S : Gestiona atención e historia clínica
+A --> S : Gestiona agenda y procesos administrativos
+
+S --> EPS : Valida cobertura y autorizaciones
+S <--> LAB : Envía órdenes y recibe resultados
+S --> NOT : Solicita notificaciones
+
+note right of S
+  Sistema central que digitaliza
+  la gestión hospitalaria con
+  arquitectura híbrida.
+end note
+
+@enduml
